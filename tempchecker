@@ -1,0 +1,55 @@
+import datetime
+import os
+def record_temperature(original_temp, converted_temp, unit):
+    """Record the temperature conversion in temps_recorded.txt."""
+    # Determining the filename
+    filename = "temprecords.txt"
+
+    # Check if the file exists, if not, create it
+    if not os.path.exists("temprecords.txt"):
+        open("temprecords.txt", 'w').close()
+
+    # Writing the record to the file
+    with open("temprecords.txt", 'a') as file:
+        # Formatting the date and time
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if unit == "F":
+            record = f"{current_time}: {original_temp} F -> {converted_temp:.2f} C\n"
+        else:
+            record = f"{current_time}: {original_temp} C -> {converted_temp:.2f} F\n"
+        file.write(record)
+
+#Convert F to C
+def convert_f_to_c (fahrenheit):
+    return (fahrenheit - 32) * (5/9)
+#Convert C to F
+def convert_c_to_f (celsius):
+    return(celsius * (9/5) + 32)
+# Convert temps
+def temperature_converter():
+    #While loop
+    while True:
+        #ask user for current temp
+        temp = float(input("Please enter a temperature: "))
+        #ask if that is f or c
+        unit = input("Is it F or C? ").upper()
+
+        if unit == "F":
+            print(f"{temp} Fahrenheit is {convert_f_to_c(temp)} Celsius. ")
+        elif unit == "C":
+            print(f"{temp} Celsius is {convert_c_to_f(temp)} Fahrenheit. ")
+        else: 
+            print("INVALID. TRY AGAIN")
+
+        run_again = input("would you like to check a new temp Yes/No: ").lower()
+        if run_again != "yes":
+            print("Thank you, stay warm!")
+            break
+# Run the temperature_converter function
+temperature_converter()
+# create new file
+f = open("temprecords.txt", "w")
+# write temp values to new file i guess
+f = open("temprecords.txt", "a")
+f.write("testing the test i test")
+f.close()
